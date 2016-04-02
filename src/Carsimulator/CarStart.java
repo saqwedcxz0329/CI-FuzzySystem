@@ -21,7 +21,7 @@ public class CarStart extends Thread {
 		isTerminated = true;
 		interrupt();
 	}
-	
+
 	public static Point CountMinInterPoint(Point o, Point p, Point Sensor) {
 		double min_dist = 1000;
 		double dist;
@@ -47,8 +47,8 @@ public class CarStart extends Thread {
 		double distY = p.getY() - q.getY();
 		return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 	}
-	
-	public static void CountInterPoint_TRL(){
+
+	public static void CountInterPoint_TRL() {
 		CarLocate = new Point(car.getX(), car.getY());
 		carT = new Point(car.getX() + car.getRadius() * Math.cos(Math.toRadians(car.getPhi())),
 				car.getY() + car.getRadius() * Math.sin(Math.toRadians(car.getPhi())));
@@ -58,11 +58,11 @@ public class CarStart extends Thread {
 
 		carL = new Point(car.getX() + car.getRadius() * Math.cos(Math.toRadians(car.getPhi() - 45)),
 				car.getY() + car.getRadius() * Math.sin(Math.toRadians(car.getPhi() - 45)));
-		
+
 		CarT_Locate = new Point(car.getX() + 300 * Math.cos(Math.toRadians(car.getPhi())),
 				car.getY() + 300 * Math.sin(Math.toRadians(car.getPhi())));
 		min_InterPointT = CountMinInterPoint(CarLocate, CarT_Locate, carT);
-		
+
 		CarR_Locate = new Point(car.getX() + 300 * Math.cos(Math.toRadians(car.getPhi() + 45)),
 				car.getY() + 300 * Math.sin(Math.toRadians(car.getPhi() + 45)));
 		min_InterPointR = CountMinInterPoint(CarLocate, CarR_Locate, carR);
@@ -71,7 +71,7 @@ public class CarStart extends Thread {
 				car.getY() + 300 * Math.sin(Math.toRadians(car.getPhi() - 45)));
 		min_InterPointL = CountMinInterPoint(CarLocate, CarL_Locate, carL);
 	}
-	
+
 	public void run() {
 		while (!isTerminated) {
 
@@ -92,6 +92,9 @@ public class CarStart extends Thread {
 			fSystem.Right_Left(distR, distL);
 			fSystem.Front(distT);
 			System.out.println("theta: " + fSystem.Defuzzification());
+//			System.out.println("X : " + car.getX());
+//			System.out.println("Y : " + car.getY());
+//			System.out.println("phi: " + car.getPhi());
 			car.setTheta(fSystem.Defuzzification());
 
 			booboo.frame.revalidate();

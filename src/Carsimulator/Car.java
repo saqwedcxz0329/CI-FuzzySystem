@@ -17,7 +17,7 @@ public class Car {
 	private int r;
 
 	Car() {
-		x = 110;
+		x = 100;
 		y = 275;
 		theta = 0;
 		phi = -90;

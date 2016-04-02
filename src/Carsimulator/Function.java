@@ -1,7 +1,5 @@
 package Carsimulator;
 
-import java.io.ObjectInputStream.GetField;
-
 public class Function {
 	private double alpha;
 	private int xaxis;

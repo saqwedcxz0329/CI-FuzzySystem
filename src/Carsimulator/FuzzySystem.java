@@ -23,15 +23,15 @@ public class FuzzySystem {
 			if (dist <= -20) {
 				alpha_d1 = 1;
 			} else {
-				alpha_d1 = dist * (-1 / 10) - 1;
+				alpha_d1 = dist * -1 / 10 - 1;
 			}
 			d1[0] = 1;
 		}
 		if (dist >= -12.5 && dist <= 12.5) {
 			if (dist < 0) {
-				alpha_d1 = dist * (1 / 12.5) + 1;
+				alpha_d1 = dist * 1 / 12.5 + 1;
 			} else if (dist > 0) {
-				alpha_d1 = dist * (-1 / 12.5) + 1;
+				alpha_d1 = dist * -1 / 12.5 + 1;
 			} else {
 				alpha_d1 = 1;
 			}
@@ -41,7 +41,7 @@ public class FuzzySystem {
 			if (dist >= 20) {
 				alpha_d1 = 1;
 			} else {
-				alpha_d1 = dist * (1 / 10) - 1;
+				alpha_d1 = dist * 1 / 10 - 1;
 			}
 			d1[2] = 1;
 		}
@@ -52,7 +52,7 @@ public class FuzzySystem {
 			if (dist <= 15) {
 				alpha_d2 = 1;
 			} else {
-				alpha_d2 = dist * (-1 / 5) + 4;
+				alpha_d2 = dist * -1 / 5 + 4;
 			}
 			d2[0] = 1;
 		}
@@ -60,49 +60,108 @@ public class FuzzySystem {
 			alpha_d2 = 1;
 			d2[1] = 1;
 		}
-		if (dist >= 50) {
+		if (dist >= 35) {
 			if (dist >= 60) {
 				alpha_d2 = 1;
 			} else {
-				alpha_d2 = dist * (1 / 10) - 5;
+				alpha_d2 = dist * 1 / 25 - 1.4;
 			}
 			d2[2] = 1;
 		}
 	}
 
 	public double Defuzzification() {
-		double alpha_R1 = 0;
-		double alpha_R2 = 0;
-		double alpha_R3 = 0;
-		double alpha_R4 = 0;
-		double alpha_R5 = 0;
-		double alpha_R6 = 0;
-		double alpha_R7 = 0;
-		double num_a, num_b;
+
+		double threshold;
+		double num_a = 0;
+		double num_b = 0;
 		double theta = 0;
-		if (d1[2] == 1 && d2[0] == 1) {
-			alpha_R1 = Math.min(alpha_d1, alpha_d2);
+		for (int i = -60; i <= 60; i++) {
+			double[] alpha = { 0, 0, 0, 0, 0, 0, 0, 0 };
+			double maxalpha = 0;
+			if (d1[2] == 1 && d2[0] == 1) {
+				alpha[1] = Math.min(alpha_d1, alpha_d2);
+				threshold = -40 * alpha[1];
+				if (i < 0 && i >= -40) {
+					if (i > threshold) {
+						alpha[1] = i * -1 / 40;
+					}
+				} else {
+					alpha[1] = 0;
+				}
+			}
+			if (d1[0] == 1 && d2[0] == 1) {
+				alpha[2] = Math.min(alpha_d1, alpha_d2);
+				threshold = 40 * alpha[2];
+				if (i > 0 && i <= 40) {
+					if (i < threshold) {
+						alpha[2] = i * 1 / 40;
+					}
+				} else {
+					alpha[2] = 0;
+				}
+			}
+			if (d1[1] == 1 && d2[0] == 1) {
+				if (i == -35) {
+					alpha[3] = Math.min(alpha_d1, alpha_d2);
+				} else {
+					alpha[3] = 0;
+				}
+			}
+			if (d1[2] == 1 && d2[1] == 1) {
+				alpha[4] = Math.min(alpha_d1, alpha_d2);
+				threshold = -20 * alpha[4];
+				if (i < 0 && i >= -40) {
+					if (i > threshold) {
+						alpha[4] = i * -1 / 20;
+					}
+				} else {
+					alpha[4] = 0;
+				}
+			}
+			if (d1[0] == 1 && d2[1] == 1) {
+				alpha[5] = Math.min(alpha_d1, alpha_d2);
+				threshold = 20 * alpha[5];
+				if (i > 0 && i <= 40) {
+					if (i < threshold) {
+						alpha[5] = i * 1 / 20;
+					}
+				} else {
+					alpha[5] = 0;
+				}
+			}
+			if (d1[2] == 1 && d2[2] == 1) {
+				alpha[6] = Math.min(alpha_d1, alpha_d2);
+				threshold = -15 * alpha[6];
+				if (i < 0 && i >= -15) {
+					if (i > threshold) {
+						alpha[6] = i * -1 / 15;
+					}
+				} else {
+					alpha[6] = 0;
+				}
+			}
+			if (d1[0] == 1 && d2[2] == 1) {
+				alpha[7] = Math.min(alpha_d1, alpha_d2);
+				threshold = 15 * alpha[7];
+				if (i > 0 && i <= 15) {
+					if (i < threshold) {
+						alpha[7] = i * 1 / 15;
+					}
+				} else {
+					alpha[7] = 0;
+				}
+			}
+			for (int j = 1; j <= 7; j++) {
+				if (alpha[j] > maxalpha) {
+					maxalpha = alpha[j];
+				}
+			}
+
+			num_a = num_a + i * maxalpha;
+			num_b = num_b + maxalpha;
 		}
-		if (d1[0] == 1 && d2[0] == 1) {
-			alpha_R2 = Math.min(alpha_d1, alpha_d2);
-		}
-		if (d1[1] == 1 && d2[0] == 1) {
-			alpha_R3 = Math.min(alpha_d1, alpha_d2);
-		}
-		if (d1[2] == 1 && d2[1] == 1) {
-			alpha_R4 = Math.min(alpha_d1, alpha_d2);
-		}
-		if (d1[0] == 1 && d2[1] == 1) {
-			alpha_R5 = Math.min(alpha_d1, alpha_d2);
-		}
-		if (d1[2] == 1 && d2[2] == 1) {
-			alpha_R6 = Math.min(alpha_d1, alpha_d2);
-		}
-		if (d1[0] == 1 && d2[2] == 1) {
-			alpha_R7 = Math.min(alpha_d1, alpha_d2);
-		}
-		num_a = -40 * alpha_R1 + 40 * alpha_R2 + -40 * alpha_R3 + -20 * alpha_R4 + 20 * alpha_R5 + -12.5 * alpha_R6 + 12.5 * alpha_R7;
-		num_b = alpha_R1 + alpha_R2 + alpha_R3 + alpha_R4 + alpha_R5 + alpha_R6 + alpha_R7;
+
 		if (num_b != 0) {
 			theta = num_a / num_b;
 		}
