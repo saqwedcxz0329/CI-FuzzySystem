@@ -30,10 +30,10 @@ public class RenewPanel extends JPanel {
 		g.drawLine(booboo.x[9], booboo.y[9], booboo.x[11], booboo.y[11]);
 
 		g.drawLine((int) Car.getX(), (int) Car.getY(),
-				(int) FuzzySystem.min_InterPointR.getX(), (int) FuzzySystem.min_InterPointR.getY());
+				(int) CarStart.min_InterPointR.getX(), (int) CarStart.min_InterPointR.getY());
 		g.drawLine((int) Car.getX(), (int) Car.getY(),
-				(int) FuzzySystem.min_InterPointL.getX(), (int) FuzzySystem.min_InterPointL.getY());
+				(int) CarStart.min_InterPointL.getX(), (int) CarStart.min_InterPointL.getY());
 		g.drawLine((int) Car.getX(), (int) Car.getY(),
-				(int) FuzzySystem.min_InterPointT.getX(), (int) FuzzySystem.min_InterPointT.getY());
+				(int) CarStart.min_InterPointT.getX(), (int) CarStart.min_InterPointT.getY());
 	}
 }

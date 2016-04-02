@@ -1,59 +1,98 @@
 package Carsimulator;
 
-public class FuzzySystem extends Thread {
-	Car car;
-	Engine engine;
-	public static Point carT, carL, carR, min_InterPointT, min_InterPointL, min_InterPointR;
-	public static Point CarLocate, CarT_Locate, CarL_Locate, CarR_Locate;
-	public static double distT, distL, distR;
-	
-	public FuzzySystem(Car car, Engine engine) {
+import java.util.ArrayList;
+
+public class FuzzySystem {
+	private double[] d1 = new double[3];
+	private double[] d2 = new double[3];
+	private double alpha_d1, alpha_d2;
+
+	public FuzzySystem() {
 		// TODO Auto-generated constructor stub
-		this.car = car;
-		this.engine = engine;
+		for (int i = 0; i < 3; i++) {
+			d1[i] = 0;
+			d2[i] = 0;
+		}
+		alpha_d1 = 0;
+		alpha_d2 = 0;
 	}
-	public void run() {
-		while(true){
-			
-			double theta = car.getTheta();
-			System.out.println("theta: " + theta);
-			engine.newlocation(theta);
-			
-			CarLocate = new Point(car.getX(), car.getY());
-			carT = new Point(car.getX() + car.getRadius() * Math.cos(Math.toRadians(car.getPhi())),
-					car.getY() + car.getRadius() * Math.sin(Math.toRadians(car.getPhi())));
-			
-			carR = new Point(car.getX() + car.getRadius() * Math.cos(Math.toRadians(car.getPhi() + 45)),
-					car.getY() + car.getRadius() * Math.sin(Math.toRadians(car.getPhi() + 45)));
-			
-			carL = new Point(car.getX() + car.getRadius() * Math.cos(Math.toRadians(car.getPhi() - 45)),
-					car.getY() + car.getRadius() * Math.sin(Math.toRadians(car.getPhi() - 45)));
-			
-			CarR_Locate = new Point(car.getX() + 300 * Math.cos(Math.toRadians(car.getPhi() + 45)),
-					car.getY() + 300 * Math.sin(Math.toRadians(car.getPhi() + 45)));
-			min_InterPointR = booboo.CountMinInterPoint(CarLocate, CarR_Locate, carR);
-			distR = booboo.CountDist(carR, min_InterPointR);
-			
-			CarL_Locate = new Point(car.getX() + 300 * Math.cos(Math.toRadians(car.getPhi() - 45)),
-					car.getY() + 300 * Math.sin(Math.toRadians(car.getPhi() - 45)));
-			min_InterPointL = booboo.CountMinInterPoint(CarLocate, CarL_Locate, carL);
-			distL = booboo.CountDist(carL, min_InterPointL);
-			
-			CarT_Locate = new Point(car.getX() + 300 * Math.cos(Math.toRadians(car.getPhi())),
-					car.getY() + 300 * Math.sin(Math.toRadians(car.getPhi())));
-			min_InterPointT = booboo.CountMinInterPoint(CarLocate, CarT_Locate, carT);
-			distT = booboo.CountDist(carT, min_InterPointT);
-			
-			System.out.println("distT: " + distT);
-			System.out.println("distR: " + distR);
-			System.out.println("distL: " + distL);
-			
-			booboo.frame.revalidate();
-			booboo.frame.repaint();
-			try {
-				this.sleep(200);
-			} catch (InterruptedException e) {
+
+	public void Right_Left(double Right, double Left) {
+		double dist = Right - Left;
+		if (dist <= -10) {
+			if (dist <= -20) {
+				alpha_d1 = 1;
+			} else {
+				alpha_d1 = dist * (-1 / 10) - 1;
 			}
+			d1[0] = 1;
+		}
+		if (dist >= -12.5 && dist <= 12.5) {
+			if (dist < 0) {
+				alpha_d1 = dist * (1 / 12.5) + 1;
+			} else if (dist > 0) {
+				alpha_d1 = dist * (-1 / 12.5) + 1;
+			} else {
+				alpha_d1 = 1;
+			}
+			d1[1] = 1;
+		}
+		if (dist >= 10) {
+			if (dist >= 20) {
+				alpha_d1 = 1;
+			} else {
+				alpha_d1 = dist * (1 / 10) - 1;
+			}
+			d1[2] = 1;
 		}
 	}
+
+	public void Front(double dist) {
+		if (dist <= 20) {
+			if (dist <= 15) {
+				alpha_d2 = 1;
+			} else {
+				alpha_d2 = dist * (-1 / 5) + 4;
+			}
+			d2[0] = 1;
+		}
+		if (dist > 20 && dist < 50) {
+			alpha_d2 = 1;
+			d2[1] = 1;
+		}
+		if (dist >= 50) {
+			if (dist >= 60) {
+				alpha_d2 = 1;
+			} else {
+				alpha_d2 = dist * (1 / 10) - 5;
+			}
+			d2[2] = 1;
+		}
+	}
+
+	public double Defuzzification() {
+		double alpha_r1 = 0;
+		double alpha_r2 = 0;
+		double alpha_r3 = 0;
+		double alpha_r4 = 0;
+		double theta = 0;
+		if (d2[0] == 1 && d1[2] == 1) {
+			alpha_r1 = Math.min(alpha_d1, alpha_d2);
+		}
+//		if (d2[0] == 1 && d1[2] == 1) {
+//			alpha_r2 = Math.min(alpha_d1, alpha_d2);
+//		}
+		if (d1[2] == 1) {
+			alpha_r3 = alpha_d1;
+		}
+		if (d1[0] == 1) {
+			alpha_r4 = alpha_d2;
+		}
+
+		if (alpha_r1 + alpha_r2 + alpha_r3 + alpha_r4 != 0) {
+			theta = ((-30 * alpha_r1) + (20 * alpha_r2) + (-15 * alpha_r3) + (15 * alpha_r4)) / (alpha_r1 + alpha_r2 + alpha_r3 + alpha_r4);
+		}
+		return theta;
+	}
+
 }

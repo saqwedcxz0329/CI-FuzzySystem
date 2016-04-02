@@ -61,7 +61,7 @@ public class booboo extends JFrame implements KeyListener {
 		BoundPoint.add(new Point(190, 30));
 		BoundPoint.add(new Point(250, 30));
 		
-		Thread t = new FuzzySystem(car, engine);
+		Thread t = new CarStart(car, engine);
 		t.start();
 	}
 

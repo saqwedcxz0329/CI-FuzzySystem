@@ -21,9 +21,9 @@ public class Car{
 	
 	Car() {
 		x = 100;
-		y = 275;
+		y = 240;
 		theta = 0;
-		phi = -90;
+		phi = 200;
 		r = 15;
 	}
 
