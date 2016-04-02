@@ -12,61 +12,57 @@ import javax.swing.JPanel;
 
 import org.omg.CORBA.PolicyErrorCodeHelper;
 
-public class Car{
-	private static double x;
-	private static double y;
-	private static double phi;
-	private  double theta;
-	private static int r;
-	
+public class Car {
+	private double x, y, phi, theta;
+	private int r;
+
 	Car() {
-		x = 100;
-		y = 240;
+		x = 110;
+		y = 275;
 		theta = 0;
-		phi = 200;
+		phi = -90;
 		r = 15;
 	}
 
-	public static  double getX() {
+	public double getX() {
 		return x;
 	}
 
-	public static  double getY() {
+	public double getY() {
 		return y;
 	}
 
-	public static  double getPhi() {
+	public double getPhi() {
 		return phi;
 	}
-	
+
 	public double getTheta() {
 		return theta;
 	}
-	public static int getRadius(){
+
+	public int getRadius() {
 		return r;
 	}
-	
-	public static void setX(double x) {
-		Car.x = x;
+
+	public void setX(double x) {
+		this.x = x;
 	}
 
-	public static void setY(double y) {
-		Car.y = y;
+	public void setY(double y) {
+		this.y = y;
 	}
 
-	public static void setPhi(double phi) {
-		if(phi >= 270){			
-			Car.phi = phi -360;
-		}
-		else if(phi >= -90){
-			Car.phi = phi;
-		}
-		else			{
-			Car.phi = 360 + phi;
+	public void setPhi(double phi) {
+		if (phi >= 270) {
+			this.phi = phi - 360;
+		} else if (phi >= -90) {
+			this.phi = phi;
+		} else {
+			this.phi = 360 + phi;
 		}
 	}
-	
-	public void setTheta(double theta){
+
+	public void setTheta(double theta) {
 		this.theta = theta;
 	}
 }

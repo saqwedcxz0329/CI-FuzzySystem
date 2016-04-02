@@ -1,20 +1,27 @@
 package Carsimulator;
 
 public class Engine {
+	Car car;
 	private double x, y, phi;
 	private double radphi, radtheta;
-	public void newlocation(double theta){
-		radphi = Math.toRadians(Car.getPhi());
+
+	public Engine(Car car) {
+		// TODO Auto-generated constructor stub
+		this.car = car;
+	}
+
+	public void newlocation(double theta) {
+		radphi = Math.toRadians(car.getPhi());
 		radtheta = Math.toRadians(theta);
-		
-		x = Car.getX() + Math.cos(radphi + radtheta) 
+
+		x = car.getX() + Math.cos(radphi + radtheta)
 				+ Math.sin(radtheta) * Math.sin(radphi);
-		y = Car.getY() + Math.sin(radphi + radtheta) 
+		y = car.getY() + Math.sin(radphi + radtheta)
 				- Math.sin(radtheta) * Math.cos(radphi);
-		phi = Car.getPhi() - (Math.asin((2*Math.sin(radtheta)) / (2*Car.getRadius()))) * 180 / Math.PI;
-		
-		Car.setPhi(phi);
-		Car.setX(x);
-		Car.setY(y);
+		phi = car.getPhi() - (Math.asin((2 * Math.sin(radtheta)) / (2 * car.getRadius()))) * 180 / Math.PI;
+
+		car.setPhi(phi);
+		car.setX(x);
+		car.setY(y);
 	}
 }

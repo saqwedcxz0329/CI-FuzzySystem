@@ -71,26 +71,40 @@ public class FuzzySystem {
 	}
 
 	public double Defuzzification() {
-		double alpha_r1 = 0;
-		double alpha_r2 = 0;
-		double alpha_r3 = 0;
-		double alpha_r4 = 0;
+		double alpha_R1 = 0;
+		double alpha_R2 = 0;
+		double alpha_R3 = 0;
+		double alpha_R4 = 0;
+		double alpha_R5 = 0;
+		double alpha_R6 = 0;
+		double alpha_R7 = 0;
+		double num_a, num_b;
 		double theta = 0;
-		if (d2[0] == 1 && d1[2] == 1) {
-			alpha_r1 = Math.min(alpha_d1, alpha_d2);
+		if (d1[2] == 1 && d2[0] == 1) {
+			alpha_R1 = Math.min(alpha_d1, alpha_d2);
 		}
-//		if (d2[0] == 1 && d1[2] == 1) {
-//			alpha_r2 = Math.min(alpha_d1, alpha_d2);
-//		}
-		if (d1[2] == 1) {
-			alpha_r3 = alpha_d1;
+		if (d1[0] == 1 && d2[0] == 1) {
+			alpha_R2 = Math.min(alpha_d1, alpha_d2);
 		}
-		if (d1[0] == 1) {
-			alpha_r4 = alpha_d2;
+		if (d1[1] == 1 && d2[0] == 1) {
+			alpha_R3 = Math.min(alpha_d1, alpha_d2);
 		}
-
-		if (alpha_r1 + alpha_r2 + alpha_r3 + alpha_r4 != 0) {
-			theta = ((-30 * alpha_r1) + (20 * alpha_r2) + (-15 * alpha_r3) + (15 * alpha_r4)) / (alpha_r1 + alpha_r2 + alpha_r3 + alpha_r4);
+		if (d1[2] == 1 && d2[1] == 1) {
+			alpha_R4 = Math.min(alpha_d1, alpha_d2);
+		}
+		if (d1[0] == 1 && d2[1] == 1) {
+			alpha_R5 = Math.min(alpha_d1, alpha_d2);
+		}
+		if (d1[2] == 1 && d2[2] == 1) {
+			alpha_R6 = Math.min(alpha_d1, alpha_d2);
+		}
+		if (d1[0] == 1 && d2[2] == 1) {
+			alpha_R7 = Math.min(alpha_d1, alpha_d2);
+		}
+		num_a = -40 * alpha_R1 + 40 * alpha_R2 + -40 * alpha_R3 + -20 * alpha_R4 + 20 * alpha_R5 + -12.5 * alpha_R6 + 12.5 * alpha_R7;
+		num_b = alpha_R1 + alpha_R2 + alpha_R3 + alpha_R4 + alpha_R5 + alpha_R6 + alpha_R7;
+		if (num_b != 0) {
+			theta = num_a / num_b;
 		}
 		return theta;
 	}
