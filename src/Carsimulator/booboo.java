@@ -173,15 +173,15 @@ public class booboo extends JFrame implements ActionListener, KeyListener {
 			car.setX(x);
 			car.setY(y);
 			car.setPhi(phi);
-			new CarStart(car, engine);
+			thread.CountInterPoint_TRL();
 			frame.revalidate();
 			frame.repaint();
 		}
-		if (e.getSource() == reset){
+		if (e.getSource() == reset) {
 			car.setX(100);
 			car.setY(275);
 			car.setPhi(-90);
-			new CarStart(car, engine);
+			thread.CountInterPoint_TRL();
 			frame.revalidate();
 			frame.repaint();
 		}

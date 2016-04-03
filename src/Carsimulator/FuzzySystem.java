@@ -1,7 +1,5 @@
 package Carsimulator;
 
-import java.util.ArrayList;
-
 public class FuzzySystem {
 	private double[] d1 = new double[3];
 	private double[] d2 = new double[3];
@@ -20,10 +18,10 @@ public class FuzzySystem {
 	public void Right_Left(double Right, double Left) {
 		double dist = Right - Left;
 		if (dist <= -10) {
-			if (dist <= -20) {
+			if (dist <= -130) {
 				alpha_d1 = 1;
 			} else {
-				alpha_d1 = dist * -1 / 10 - 1;
+				alpha_d1 = dist * -1 / 120 - 0.076923;
 			}
 			d1[0] = 1;
 		}
@@ -38,13 +36,39 @@ public class FuzzySystem {
 			d1[1] = 1;
 		}
 		if (dist >= 10) {
-			if (dist >= 20) {
+			if (dist >= 150) {
 				alpha_d1 = 1;
 			} else {
-				alpha_d1 = dist * 1 / 10 - 1;
+				alpha_d1 = dist * 1 / 140 - 0.0714285;
 			}
 			d1[2] = 1;
 		}
+		// if (dist <= -10) {
+		// if (dist <= -20) {
+		// alpha_d1 = 1;
+		// } else {
+		// alpha_d1 = dist * -1 / 10 - 1;
+		// }
+		// d1[0] = 1;
+		// }
+		// if (dist >= -12.5 && dist <= 12.5) {
+		// if (dist < 0) {
+		// alpha_d1 = dist * 1 / 12.5 + 1;
+		// } else if (dist > 0) {
+		// alpha_d1 = dist * -1 / 12.5 + 1;
+		// } else {
+		// alpha_d1 = 1;
+		// }
+		// d1[1] = 1;
+		// }
+		// if (dist >= 10) {
+		// if (dist >= 20) {
+		// alpha_d1 = 1;
+		// } else {
+		// alpha_d1 = dist * 1 / 10 - 1;
+		// }
+		// d1[2] = 1;
+		// }
 	}
 
 	public void Front(double dist) {
@@ -111,7 +135,7 @@ public class FuzzySystem {
 			if (d1[2] == 1 && d2[1] == 1) {
 				alpha[4] = Math.min(alpha_d1, alpha_d2);
 				threshold = -20 * alpha[4];
-				if (i < 0 && i >= -40) {
+				if (i < 0 && i >= -35) {
 					if (i > threshold) {
 						alpha[4] = i * -1 / 20;
 					}
@@ -122,7 +146,7 @@ public class FuzzySystem {
 			if (d1[0] == 1 && d2[1] == 1) {
 				alpha[5] = Math.min(alpha_d1, alpha_d2);
 				threshold = 20 * alpha[5];
-				if (i > 0 && i <= 40) {
+				if (i > 0 && i <= 35) {
 					if (i < threshold) {
 						alpha[5] = i * 1 / 20;
 					}

@@ -3,8 +3,8 @@ package Carsimulator;
 import java.time.format.FormatStyle;
 
 public class CarStart extends Thread {
-	private static Car car;
-	private static Engine engine;
+	private Car car;
+	private Engine engine;
 	public static Point carT, carL, carR, min_InterPointT, min_InterPointL, min_InterPointR;
 	public static Point CarLocate, CarT_Locate, CarL_Locate, CarR_Locate;
 
@@ -22,7 +22,7 @@ public class CarStart extends Thread {
 		interrupt();
 	}
 
-	public static Point CountMinInterPoint(Point o, Point p, Point Sensor) {
+	public Point CountMinInterPoint(Point o, Point p, Point Sensor) {
 		double min_dist = 1000;
 		double dist;
 		Point min_InterPoint = new Point(0, 0);
@@ -42,13 +42,13 @@ public class CarStart extends Thread {
 		return min_InterPoint;
 	}
 
-	public static double CountDist(Point p, Point q) {
+	public double CountDist(Point p, Point q) {
 		double distX = p.getX() - q.getX();
 		double distY = p.getY() - q.getY();
 		return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 	}
 
-	public static void CountInterPoint_TRL() {
+	public void CountInterPoint_TRL() {
 		CarLocate = new Point(car.getX(), car.getY());
 		carT = new Point(car.getX() + car.getRadius() * Math.cos(Math.toRadians(car.getPhi())),
 				car.getY() + car.getRadius() * Math.sin(Math.toRadians(car.getPhi())));
@@ -92,9 +92,9 @@ public class CarStart extends Thread {
 			fSystem.Right_Left(distR, distL);
 			fSystem.Front(distT);
 			System.out.println("theta: " + fSystem.Defuzzification());
-//			System.out.println("X : " + car.getX());
-//			System.out.println("Y : " + car.getY());
-//			System.out.println("phi: " + car.getPhi());
+			// System.out.println("X : " + car.getX());
+			// System.out.println("Y : " + car.getY());
+			// System.out.println("phi: " + car.getPhi());
 			car.setTheta(fSystem.Defuzzification());
 
 			booboo.frame.revalidate();
@@ -105,7 +105,7 @@ public class CarStart extends Thread {
 			}
 
 			try {
-				this.sleep(100);
+				sleep(50);
 			} catch (InterruptedException e) {
 			}
 		}

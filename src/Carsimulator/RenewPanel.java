@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 public class RenewPanel extends JPanel {
 	Car car;
-	private double carTopX, carTopy;
 
 	public RenewPanel(Car car) {
 		// TODO Auto-generated constructor stub
@@ -22,8 +21,6 @@ public class RenewPanel extends JPanel {
 		float width = 2.0f;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(width));
-		carTopX = car.getRadius() * Math.cos(Math.toRadians(car.getPhi()));
-		carTopy = car.getRadius() * Math.sin(Math.toRadians(car.getPhi()));
 
 		g2.drawOval((int) car.getX() - car.getRadius(), (int) car.getY() - car.getRadius(), 2 * car.getRadius(), 2 * car.getRadius());
 

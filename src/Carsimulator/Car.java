@@ -1,17 +1,5 @@
 package Carsimulator;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.regex.Matcher;
-
-import javax.print.attribute.HashPrintJobAttributeSet;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.omg.CORBA.PolicyErrorCodeHelper;
-
 public class Car {
 	private double x, y, phi, theta;
 	private int r;
