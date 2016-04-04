@@ -8,6 +8,10 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class RenewPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Car car;
 
 	public RenewPanel(Car car) {

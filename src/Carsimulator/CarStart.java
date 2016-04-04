@@ -1,7 +1,5 @@
 package Carsimulator;
 
-import java.time.format.FormatStyle;
-
 public class CarStart extends Thread {
 	private Car car;
 	private Engine engine;
