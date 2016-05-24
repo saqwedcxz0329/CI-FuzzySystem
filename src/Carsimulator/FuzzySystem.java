@@ -15,13 +15,13 @@ public class FuzzySystem {
 		alpha_d2 = 0;
 	}
 
-	public void Right_Left(double Right, double Left) {
+	public void Right_Left(double Right, double Left) {//計算R-L屬於哪個區間
 		double dist = Right - Left;
 		if (dist <= -10) {
 			if (dist <= -130) {
 				alpha_d1 = 1;
 			} else {
-				alpha_d1 = dist * -1 / 120 - 0.076923;
+				alpha_d1 = dist * -1 / 120 - 0.083333;
 			}
 			d1[0] = 1;
 		}
@@ -43,35 +43,9 @@ public class FuzzySystem {
 			}
 			d1[2] = 1;
 		}
-		// if (dist <= -10) {
-		// if (dist <= -20) {
-		// alpha_d1 = 1;
-		// } else {
-		// alpha_d1 = dist * -1 / 10 - 1;
-		// }
-		// d1[0] = 1;
-		// }
-		// if (dist >= -12.5 && dist <= 12.5) {
-		// if (dist < 0) {
-		// alpha_d1 = dist * 1 / 12.5 + 1;
-		// } else if (dist > 0) {
-		// alpha_d1 = dist * -1 / 12.5 + 1;
-		// } else {
-		// alpha_d1 = 1;
-		// }
-		// d1[1] = 1;
-		// }
-		// if (dist >= 10) {
-		// if (dist >= 20) {
-		// alpha_d1 = 1;
-		// } else {
-		// alpha_d1 = dist * 1 / 10 - 1;
-		// }
-		// d1[2] = 1;
-		// }
 	}
 
-	public void Front(double dist) {
+	public void Front(double dist) {//計算Front屬於哪個區間
 		if (dist <= 20) {
 			if (dist <= 15) {
 				alpha_d2 = 1;
