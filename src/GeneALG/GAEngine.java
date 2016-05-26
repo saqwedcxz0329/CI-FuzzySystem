@@ -78,9 +78,15 @@ public class GAEngine extends Thread {
 			gaEngine.start();
 		}
 		if( min < error){
-			jlb_En.setText("Error(n) = " + min + " 演化完畢!");
+			jlb_En.setText("Error(n) = " + min + " 演化完成!");
 		}
 
 		GA.bestDNA = gPairs.get(best_index).getDNA();
+		
+		for(int i = 0;i<GA.bestDNA.length; i++){
+			System.out.print(GA.bestDNA[i] + " ");
+		}
+		System.out.println();
+
 	}
 }

@@ -15,29 +15,41 @@ public class PSO implements ActionListener{
 	
 	public ArrayList<ArrayList<Double>> TrainingData = new ArrayList<ArrayList<Double>>();
 	
-	public static JLabel jlb_groupNum,jlb_En;
+	public static JLabel jlb_itrNum, jlb_groupNum,jlb_En, jlb_error;
 	public static JButton btn_selectedFile, btn_run, btn_exit;
-	public static JTextField jtf_groupNum;
+	public static JTextField jtf_groupNum, jtf_itrNum, jtf_error;
 	public static JFrame frame;
 	
 	public static double [] bestLocation;
 	
 	public PSO(){
 		frame = new JFrame("PSO");
-		jlb_groupNum = new JLabel("族群大小");
+		jlb_groupNum = new JLabel("粒子數");
+		jlb_itrNum = new JLabel("移動次數");
+		jlb_error = new JLabel("誤差值");
 		jlb_En = new JLabel("Error(n) = ");
 		jtf_groupNum = new JTextField("100");
+		jtf_itrNum = new JTextField("256");
+		jtf_error = new JTextField("2.5");
 		btn_selectedFile = new JButton("Select File");
 		btn_run = new JButton("Run");
 		btn_exit = new JButton("Exit");
 		
+		jlb_itrNum.setBounds(10, 0, 60, 30);
+		jtf_itrNum.setBounds(10, 30, 60, 30);
 		jlb_groupNum.setBounds(80, 0, 60, 30);
 		jtf_groupNum.setBounds(80, 30, 60, 30);
 		jlb_En.setBounds(10, 60, 250, 30);
+		jlb_error.setBounds(150, 0, 60, 30);
+		jtf_error.setBounds(150, 30, 60, 30);
 		btn_selectedFile.setBounds(10, 100, 100, 35);
 		btn_run.setBounds(200, 100, 100, 35);
 		btn_exit.setBounds(310, 100, 100, 35);
 		
+		frame.add(jlb_itrNum);
+		frame.add(jtf_itrNum);
+		frame.add(jlb_error);
+		frame.add(jtf_error);
 		frame.add(jlb_groupNum);
 		frame.add(jtf_groupNum);
 		frame.add(jlb_En);
@@ -109,8 +121,10 @@ public class PSO implements ActionListener{
 	}
 	
 	public void PSOon(){
+		int itrNum = Integer.valueOf(jtf_itrNum.getText());
+		double error = Double.valueOf(jtf_error.getText());
 		int groupNum = Integer.valueOf(jtf_groupNum.getText());
-		PSOEngine psoEngine = new PSOEngine(groupNum, TrainingData, jlb_En);
+		PSOEngine psoEngine = new PSOEngine(itrNum, error, groupNum, TrainingData, jlb_En);
 		psoEngine.start();
 	}
 }
