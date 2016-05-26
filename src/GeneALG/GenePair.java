@@ -1,3 +1,4 @@
+
 package GeneALG;
 
 public class GenePair {
